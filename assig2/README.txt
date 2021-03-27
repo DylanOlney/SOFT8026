@@ -7,6 +7,7 @@ A Docker image for each service has been created from the files in the 'source' 
 These are pulled by the deployment files if not already present on the local machine.
 The included START.sh script creates and deploys the architecture from the .yml files.
 The included STOP.sh script stops it, terminating the services & deployments, killing all the relevant pods in the process.
+The included ShowInfo.sh script shows the deployments, services and pods running at any given time.
 Once deployed and up & running, the localhost port for viewing the analytics / metrics web pages is 30000.  
 
 
