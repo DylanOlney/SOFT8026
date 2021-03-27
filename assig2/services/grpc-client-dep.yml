@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-client-dep
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: grpc-client
+  minReadySeconds: 6
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: grpc-client
+    spec:
+      containers:
+      - name: grpc-client
+        image: dylanolney/assig2-grpc-client:latest
+
+
+
+
+
+

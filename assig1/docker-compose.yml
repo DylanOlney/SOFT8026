@@ -1,0 +1,27 @@
+version: '3'
+
+services: 
+ 
+    flask_server:
+        container_name: flask_server    
+        build: ./flask_server
+        restart: always
+        tty: true
+        ports:
+            - 5000:5000
+
+    grpc_server:
+        container_name: grpc_server
+        build: ./grpc_server
+        restart: always
+        tty: true
+        expose:
+            - "50051"
+
+    grpc_client:
+        container_name: grpc_client
+        build: ./grpc_client
+        restart: always
+        tty: true
+
+    

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+
+service Streamer {
+  rpc getPosts (ClientRequest) returns (stream ServerResponse) {}
+}
+
+
+message ClientRequest {
+  string msg = 1;
+}
+
+
+message ServerResponse {
+  string dataRow = 1;
+}

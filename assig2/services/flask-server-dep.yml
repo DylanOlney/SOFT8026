@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-server-dep
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask-server
+  minReadySeconds: 6
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: flask-server
+    spec:
+      containers:
+      - name: flask-server
+        image: dylanolney/assig2-flask-server:latest
+        ports:
+        - containerPort: 5000
+
+
+
+
+
+

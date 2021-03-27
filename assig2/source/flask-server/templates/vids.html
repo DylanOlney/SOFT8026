@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Video Metrics</title>
+  <meta name="description" content="Video Metrics">
+  <link rel="stylesheet"        href="{{ url_for('static', filename='css/styles.css') }}">
+  <script type="text/javascript" src="{{ url_for('static', filename='js/axios.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+</head>
+<body>
+  <h2 style = 'text-align: center'>--- Video Data Stream Metrics ---</h2>
+ <p style = "color: blue">--------------------------------------------------------------------------------------------------------------------------</p>
+  <div>
+     <h3>#1 Average no. of comments per video (so far)<span id = 'avComments'></span></h3>
+     
+  </div>
+    <p style = "color: blue">--------------------------------------------------------------------------------------------------------------------------</p>
+   <div>
+    <h3>#2 Video with most comments (in last 3 minutes): </h3>
+    <p id = 'mostCommentsID3'></p>
+    <p id = 'mostCommentsTitle3'></p>
+    <p id = 'mostCommentsCount3'></p>
+  </div>
+  <p style = "color: blue">--------------------------------------------------------------------------------------------------------------------------</p>
+  <div>
+    <h3>#3 Video with most comments (overall, so far): </h3>
+    <p id = 'mostCommentsID'></p>
+    <p id = 'mostCommentsTitle'></p>
+    <p id = 'mostCommentsCount'></p>
+  </div>
+    <p style = "color: blue">--------------------------------------------------------------------------------------------------------------------------</p>
+   <div>
+    <h3>#4 Oldest video (so far): </h3>
+    <p id = 'oldestPostID'></p>
+    <p id = 'oldestPostTitle'></p>
+    <p id = 'oldestPostTime'></p>
+  </div>
+    <p style = "color: blue">--------------------------------------------------------------------------------------------------------------------------</p>
+
+
+
+  <!--This script uses the Axios http library to GET metrics data which has been posted to the Flask server by the gRPC client.
+      The refresh() function below is set to fire every 500ms, polling the server for the updated data and reflecting it on the page.
+      jQuery is used to populate the HTML code above with the data.   -->
+
+  <script>
+        var interval = 500;
+        var refresh = () => {
+            
+            axios.get('/data_vids')
+            .then(res => {
+                var metricsData = res.data; 
+                var av_num_comments = metricsData['av_num_comments'].toFixed(2);
+                var most_comments = metricsData['most_comments'];
+                var most_comments_3min = metricsData['most_comments_3min'];
+                var oldest_vid = metricsData['oldest_post'];
+
+                var most_comments_id = Object.keys(most_comments)[0]
+                var most_comments_count = most_comments[most_comments_id]['num_comments']
+                var most_comments_title = most_comments[most_comments_id]['title']
+                
+                var most_comments_3min_id = Object.keys(most_comments_3min)[0]
+                var most_comments_3min_count = most_comments_3min[most_comments_3min_id]['num_comments']
+                var most_comments_3min_title = most_comments_3min[most_comments_3min_id]['title']
+                
+                var oldest_vid_id = Object.keys(oldest_vid)[0]
+                var oldest_vid_time =  new Date(parseInt(oldest_vid[oldest_vid_id]['created_utc']) * 1000)
+                var oldest_vid_title = oldest_vid[oldest_vid_id]['title']
+                
+                $('#avComments').html(' = <b><span style = "color: red">' + av_num_comments + '</span></b>');
+
+                $('#mostCommentsID').html('<b>Video ID</b>: ' + most_comments_id );
+                $('#mostCommentsTitle').html('<b>Video Title</b>: ' +  most_comments_title);
+                $('#mostCommentsCount').html('<b>No. of comments: <span style = "color: red">' +  most_comments_count + '</span></b>');
+                
+                $('#mostCommentsID3').html('<b>Video ID</b>: ' + most_comments_3min_id );
+                $('#mostCommentsTitle3').html('<b>Video Title</b>: ' +  most_comments_3min_title);
+                $('#mostCommentsCount3').html('<b>No. of comments: <span style = "color: red">' +  most_comments_3min_count + '</span></b>');
+
+                $('#oldestPostID').html('<b>Video ID</b>: ' + oldest_vid_id );
+                $('#oldestPostTitle').html('<b>Video Title</b>: ' +  oldest_vid_title);
+                $('#oldestPostTime').html('<b>Time published: <span style = "color: red">' +  oldest_vid_time + '</span></b>');
+
+                setTimeout(() => {refresh();}, interval);
+            })
+            .catch(err => {console.log(err)})
+        }
+        $(document).ready(() => {
+             refresh();  
+        });
+        
+       
+    
+</script>
+</body>
+</html>
