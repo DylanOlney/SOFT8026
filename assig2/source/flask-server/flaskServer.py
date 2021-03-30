@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 import json
+from prometheus_flask_exporter import PrometheusMetrics
 
 # This script runs a Flask server for rendering a single web page which displays the
 # required metrics data. The data is posted regularly here by the gRPC client which computes it.
@@ -13,12 +14,18 @@ postMetrics = dict()
 vidMetrics = dict()
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
+path_counter = metrics.counter(
+    'path_counter', 'Request count by request paths',
+    labels={'path': lambda: request.path}
+)
 
 
 # The index page with links to the others....
 
 @app.route('/')
+@path_counter
 def index():
     return render_template("index.html");  
 
@@ -26,11 +33,13 @@ def index():
 # These 2 routes render the webpages, one for posts and one for vids.
 
 @app.route('/posts')
+@path_counter
 def posts():
     return render_template("posts.html");  
 
 
 @app.route('/vids')
+@path_counter
 def vids():
     return render_template("vids.html");  
 
@@ -40,6 +49,7 @@ def vids():
 # also allowing the web pages to GET it on demand.
 
 @app.route('/data_posts', methods = ['POST', 'GET'])
+@path_counter
 def data_posts():
     global postMetrics
     if request.method == 'POST':
@@ -55,6 +65,7 @@ def data_posts():
 
 
 @app.route('/data_vids', methods = ['POST', 'GET'])
+@path_counter
 def data_vids():
     global vidMetrics
     if request.method == 'POST':
@@ -70,5 +81,5 @@ def data_vids():
        
  
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=False, host='0.0.0.0')
 

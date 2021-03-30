@@ -3,11 +3,13 @@
 Kubernetes - Deploying the services on the local machine:
 ---------------------------------------------------------
 The .yml files for the Kubenetes deployments and services are in the 'services' folder.
-A Docker image for each service has been created from the files in the 'source' folder and pushed to Docker Hub. 
+A Docker image for each application service has been created from the files in the 'source' folder and pushed to Docker Hub. 
 These are pulled by the deployment files if not already present on the local machine.
+
 The included START.sh script creates and deploys the architecture from the .yml files.
 The included STOP.sh script stops it, terminating the services & deployments, killing all the relevant pods in the process.
-The included ShowInfo.sh script shows the deployments, services and pods running at any given time.
+The included Kube_INFO.sh script shows the deployments, services and pods running at any given time.
+
 Once deployed and up & running, the localhost port for viewing the analytics / metrics web pages is 30000.  
 
 
@@ -25,3 +27,8 @@ From the point of view of metrics calulations, the two datasets have some equiva
 type of analyics to be carried out on both. However, some pre-processing was required in the grpc-server code so that 
 the equivalent columns relating to the analytics have the same column name and data format. Columns not relevant to the 
 analytics are dropped before streaming.
+
+
+Monitoring
+----------
+
