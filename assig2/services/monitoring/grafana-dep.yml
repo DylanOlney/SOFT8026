@@ -22,12 +22,38 @@ spec:
           name: http
 
         volumeMounts:
-          - name: grafana-storage
-            mountPath: /var/lib/grafana
+          - name: grafana-dashboards
+            mountPath: /var/lib/grafana/dashboards
+
+          - name: grafana-datasource
+            mountPath: /etc/grafana/provisioning/datasources/default.yaml 
+            subPath: datasource.yml
+
+          - name: grafana-dashcfg
+            mountPath: /etc/grafana/provisioning/dashboards/default.yaml 
+            subPath: dashboard.yml 
+
+          - name: grafana-ini
+            mountPath: /etc/grafana/grafana.ini
+            subPath: grafana.ini
+
       volumes:
-        - name: grafana-storage
-          persistentVolumeClaim:
-            claimName: grafana-storage
+        - name: grafana-dashboards
+          configMap:
+            name: grafana-dashboards
+
+        - name: grafana-datasource
+          configMap:
+            name: grafana-datasource
+
+        - name: grafana-dashcfg
+          configMap:
+            name: grafana-dashcfg
+
+        - name: grafana-ini
+          configMap:
+            name: grafana-ini
+
       securityContext:
         runAsNonRoot: true
         runAsUser: 65534

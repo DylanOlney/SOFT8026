@@ -1,10 +1,13 @@
 #! /bin/sh
 
-echo 'Deployments:'
+echo 'Deployments'
+echo '--------------------------------------------------------------------------'
 kubectl get deployment
-echo '\nServices:'
+echo '\nServices'
+echo '--------------------------------------------------------------------------'
 kubectl get svc
-echo '\nPods:'
+echo '\nPods'
+echo '--------------------------------------------------------------------------'
 kubectl get pod
 
 ./continue.o

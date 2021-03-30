@@ -15,7 +15,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 1,
   "links": [],
   "panels": [
     {
@@ -61,35 +60,35 @@
           "format": "time_series",
           "instant": false,
           "intervalFactor": 1,
-          "legendFormat": "{{path}}",
+          "legendFormat": "Endpoint: {{path}}",
           "refId": "A"
         },
         {
           "expr": "path_counter_total{instance=\"flask-server:5000\", job=\"flask\", path=\"/data_vids\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{path}}",
+          "legendFormat": "Endpoint: {{path}}",
           "refId": "B"
         },
         {
           "expr": "path_counter_total{instance=\"flask-server:5000\", job=\"flask\", path=\"/posts\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{path}}",
+          "legendFormat": "Endpoint: {{path}}",
           "refId": "C"
         },
         {
           "expr": "path_counter_total{instance=\"flask-server:5000\", job=\"flask\", path=\"/vids\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{path}}",
+          "legendFormat": "Endpoint: {{path}}",
           "refId": "D"
         },
         {
           "expr": "path_counter_total{instance=\"flask-server:5000\", job=\"flask\", path=\"/\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "{{path}}",
+          "legendFormat": "Endpoint: {{path}}",
           "refId": "E"
         }
       ],
@@ -97,7 +96,7 @@
       "timeFrom": "15m",
       "timeRegions": [],
       "timeShift": null,
-      "title": "Flask Server API Calls (count)",
+      "title": "Endpoint Requests (count)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -140,6 +139,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -225,6 +225,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "Prometheus",
       "fill": 1,
       "gridPos": {
         "h": 9,
@@ -345,7 +346,7 @@
     ]
   },
   "timezone": "",
-  "title": "MyDashboard",
+  "title": "Flask Monitoring",
   "uid": "pprtQGlMz",
-  "version": 19
+  "version": 1
 }

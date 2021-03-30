@@ -24,8 +24,19 @@ spec:
         ports:
         - containerPort: 5000
 
+        volumeMounts:
+          - name: flask-source
+            mountPath: /app/flaskServer.py
+            subPath: flaskServer.py
+          - name: flask-index
+            mountPath: /app/templates/index.html
+            subPath: index.html
 
+      volumes:
+        - name: flask-source
+          configMap:
+            name: flask-source
 
-
-
-
+        - name: flask-index
+          configMap:
+            name: flask-index
