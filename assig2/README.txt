@@ -6,29 +6,44 @@ The .yml files for the Kubenetes deployments and services are in the 'services' 
 A Docker image for each application service has been created from the files in the 'source' folder and pushed to Docker Hub. 
 These are pulled by the deployment files if not already present on the local machine.
 
-The included START.sh script creates and deploys the architecture from the .yml files.
-The included STOP.sh script stops it, terminating the services & deployments, killing all the relevant pods in the process.
+The included Kube_START.sh script creates and deploys the architecture from the .yml files.
+The included Kube_STOP.sh script stops it, terminating the services & deployments, killing all the relevant pods in the process.
 The included Kube_INFO.sh script shows the deployments, services and pods running at any given time.
 
-Once deployed and up & running, the localhost port for viewing the analytics / metrics web pages is 30000.  
+Once deployed and up & running, the localhost port for viewing the analytics / metrics web pages is 30000. 
+This page also has a link to a dashboard for monitoring the Flask server.
 
 
 Architecture:
 -------------
-No new services were added since assignment 1. The existing ones were just modified to cater for the additional dataset 
-streaming and metrics calculations. In the grpc-server, an extra rpc function was implemented for the streaming of the 2nd dataset. 
-The grpc-client service in turn uses threads to receive the two streams in parallel, concurrently computing the metrics for each, 
-and passing them onto the flask server. The web-server was also modified to display an extra page to show the metrics for the additional stream.
+Apart from monitoring services, no new application services were added since assignment 1. The existing ones were just modified to 
+cater for the additional dataset streaming and metrics calculations. In the grpc-server, an extra rpc function was implemented for the 
+streaming of the 2nd dataset. The grpc-client service in turn uses threads to receive the two streams in parallel, concurrently computing 
+the metrics for each, and passing them onto the flask server. The web-server was also modified to display an extra page to show the metrics 
+for the additional stream.
 
 
 Metrics / Analytics:
 --------------------
-From the point of view of metrics calulations, the two datasets have some equivalent columns, allowing for the same 
-type of analyics to be carried out on both. However, some pre-processing was required in the grpc-server code so that 
+From the point of view of metrics / analytics calulations, the two datasets have some equivalent columns, allowing for 
+the same type of analyics to be carried out on both. However, some pre-processing was required in the grpc-server code so that 
 the equivalent columns relating to the analytics have the same column name and data format. Columns not relevant to the 
 analytics are dropped before streaming.
 
 
-Monitoring
-----------
+Monitoring & Visualization Services (Prometheus & Grafana)
+-----------------------------------------
+Here, Prometheus, a monitoring & time series database software was employed for the purpose of gathering of stats from the Flask server.
+The Flask server in turn uses the 'prometheus_flask_exporter' library. This enables Prometheus to 'scrape' data from the server via a '/metrics' endpoint. 
+The type of data that is to be exposed to Prometheus is configured in the Flask code with the help of annotations.
+For deployment as a Kubernetes service, a docker image of this software was used. 
 
+For the visualization of the monitored data, Grafana was used. This web-based software creates a dashboard page showing charts 
+of the data provided by Prometheus. Again, a docker image was used in the creation of this service. 
+
+In this application, the two services above are configured to monitor and display 3 statistics from the Flask server:
+  1. Endpoint monitoring, i.e. request counts on each endpoint.
+  2. CPU usage.
+  3. Memory usage.
+
+A link is provided on the main page (localhost:30000) to show the Grafana dasboard.
