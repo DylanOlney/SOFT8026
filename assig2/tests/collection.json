@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "1411d877-b2dd-4a71-8cc1-1d2fa01d574b",
+		"name": "assig2_flask_endpoint_tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:30000/data_posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"// Tests for the blog posts metrics GET route..",
+							"",
+							"pm.test(\"Status code is 200\",  () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has a JSON body.\",  () => {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response has an 'av_num_comments' property.\",  () =>  {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.av_num_comments).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response has a 'most_comments' property\",  () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.most_comments).to.be.a('object');",
+							"});",
+							"",
+							"pm.test(\"Response has a 'most_comments_3min' property\",  () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.most_comments_3min).to.be.a('object');",
+							"});",
+							"",
+							"pm.test(\"Response has a 'oldest_post' property\",  () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.oldest_post).to.be.a('object');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:30000/data_posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30000",
+					"path": [
+						"data_posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:30000/data_vids",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"// Tests for the video posts metrics GET route..",
+							"",
+							"pm.test(\"Status code is 200\",  () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has a JSON body.\",  () => {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response has an 'av_num_comments' property.\",  () =>  {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.av_num_comments).to.be.a('number');",
+							"});",
+							"",
+							"pm.test(\"Response has a 'most_comments' property\",  () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.most_comments).to.be.a('object');",
+							"});",
+							"",
+							"pm.test(\"Response has a 'most_comments_3min' property\",  () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.most_comments_3min).to.be.a('object');",
+							"});",
+							"",
+							"pm.test(\"Response has a 'oldest_post' property\",  () => {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.oldest_post).to.be.a('object');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:30000/data_vids",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30000",
+					"path": [
+						"data_vids"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:30000",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"// Testing the main index page route..",
+							"",
+							"pm.test(\"Status code is 200\",  () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is a HTML page.\",  () => {",
+							"    pm.expect(pm.response.text()).to.contain('<!doctype html>');",
+							"});",
+							"",
+							"pm.test(\"Response is the index page.\",  () => {",
+							"    pm.expect(pm.response.text()).to.contain('<title>Index Page</title>');",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:30000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:30000/posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Testing the blog posts metrics page route..",
+							"",
+							"pm.test(\"Status code is 200\",  () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is a HTML page.\",  () => {",
+							"   pm.expect(pm.response.text()).to.contain('<!doctype html>');",
+							"});",
+							"",
+							"pm.test(\"Response is the correct page.\",  () => {",
+							"    pm.expect(pm.response.text()).to.contain('<title>Blog Metrics</title>');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:30000/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30000",
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:30000/vids",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Testing the video metrics page route..",
+							"",
+							"pm.test(\"Status code is 200\",  () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is a HTML page.\",  () => {",
+							"     pm.expect(pm.response.text()).to.contain('<!doctype html>');",
+							"});",
+							"",
+							"pm.test(\"Response is the correct page.\",  () => {",
+							"    pm.expect(pm.response.text()).to.contain('<title>Video Metrics</title>');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:30000/vids",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30000",
+					"path": [
+						"vids"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:30000/data_posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"// Tests for the blog posts metrics POST route..",
+							"",
+							"pm.test(\"Status code is 200\",  () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Data was received OK.\",  () => {",
+							"    pm.expect(pm.response.text()).to.eql('ok');",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"av_num_comments\": 43.47404492955959,\n    \"most_comments\": {\n        \"jsug9l\": {\n            \"created_utc\": \"1605187233\",\n            \"num_comments\": \"8354\",\n            \"streamed_time\": \"1617228830\",\n            \"title\": \"[OC] Trump voters are less likely to have a college degree\"\n        }\n    },\n    \"most_comments_3min\": {\n        \"jkqbtk\": {\n            \"created_utc\": \"1604032407\",\n            \"num_comments\": \"2584\",\n            \"streamed_time\": \"1617229472\",\n            \"title\": \"[OC] Presidential election forecast: current standings and comparison with 2016.\"\n        }\n    },\n    \"oldest_post\": {\n        \"jkiwvf\": {\n            \"created_utc\": \"1604006028\",\n            \"num_comments\": \"55\",\n            \"streamed_time\": \"1617229486\",\n            \"title\": \"[OC] Trump Votes and Mask Wearing\"\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:30000/data_posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30000",
+					"path": [
+						"data_posts"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:30000/data_vids",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Tests for the video metrics POST route..",
+							"",
+							"pm.test(\"Status code is 200\",  () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Data was received OK.\",  () => {",
+							"    pm.expect(pm.response.text()).to.eql('ok');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"av_num_comments\": 6930.86999109528,\n    \"most_comments\": {\n        \"FlsCjmMhFmw\": {\n            \"created_utc\": \"1512583131\",\n            \"num_comments\": \"845233\",\n            \"streamed_time\": \"1617229642\",\n            \"title\": \"YouTube Rewind: The Shape of 2017 | #YouTubeRewind\"\n        }\n    },\n    \"most_comments_3min\": {\n        \"leu-cTvMWTA\": {\n            \"created_utc\": \"1514278804\",\n            \"num_comments\": \"84960\",\n            \"streamed_time\": \"1617229951\",\n            \"title\": \"EXO 엑소 'Universe' MV\"\n        }\n    },\n    \"oldest_post\": {\n        \"rtQXLmkeOgo\": {\n            \"created_utc\": \"1196715185\",\n            \"num_comments\": \"74\",\n            \"streamed_time\": \"1617229944\",\n            \"title\": \"BBC TV Swap Shop Opening Titles & Clips\"\n        }\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:30000/data_vids",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "30000",
+					"path": [
+						"data_vids"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

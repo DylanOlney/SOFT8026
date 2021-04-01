@@ -54,7 +54,7 @@ def data_posts():
     global postMetrics
     if request.method == 'POST':
          postMetrics = request.get_json(force = True)
-         return ''
+         return 'ok'
     elif request.method == 'GET':
          try:
              return postMetrics
@@ -70,7 +70,7 @@ def data_vids():
     global vidMetrics
     if request.method == 'POST':
          vidMetrics = request.get_json(force = True)
-         return ''
+         return 'ok'
     elif request.method == 'GET':
          try:
              return vidMetrics

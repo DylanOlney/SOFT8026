@@ -33,17 +33,47 @@ analytics are dropped before streaming.
 
 Monitoring & Visualization Services (Prometheus & Grafana)
 -----------------------------------------
-Here, Prometheus, a monitoring & time series database software was employed for the purpose of gathering of stats from the Flask server.
-The Flask server in turn uses the 'prometheus_flask_exporter' library. This enables Prometheus to 'scrape' data from the server via a '/metrics' endpoint. 
-The type of data that is to be exposed to Prometheus is configured in the Flask code with the help of annotations.
-For deployment as a Kubernetes service, a docker image of this software was used. 
+Here, Prometheus, a monitoring & time series database software was chosen for the purpose of monitoring the Flask server. This was chosen
+because there is a convenient and straight forward to use Flask library called 'prometheus_flask_exporter' which enables Prometheus to 
+'scrape' data from it via a '/metrics' endpoint. Furthermore, the data that is to be exposed to Prometheus is easily configured in the 
+Flask code with the help of annotations. For deployment as a Kubernetes service, a docker image of this software was used. 
 
-For the visualization of the monitored data, Grafana was used. This web-based software creates a dashboard page showing charts 
-of the data provided by Prometheus. Again, a docker image was used in the creation of this service. 
+For the visualization of the monitored data, an application called Grafana was chosen. This web application enables the creation of a 
+dashboard page showing charts of data, and it can be easily configured to set up Prometheus as the data source. Again, a docker image 
+was used for the creation of this service. 
 
 In this application, the two services above are configured to monitor and display 3 statistics from the Flask server:
   1. Endpoint monitoring, i.e. request counts on each endpoint.
   2. CPU usage.
   3. Memory usage.
 
-A link is provided on the main page (localhost:30000) to show the Grafana dasboard.
+A link to the Grafana dasboard is provided on the main page (localhost:30000).
+
+
+Functional Testing of Flask Endpoints:
+--------------------------------------
+The testing aspect of the project concentrates on the Flask server API. Postman was used to develop functional tests for the various 
+POST and GET requests. A collection of some 25 individual tests for the endpoints was created in which all possible GET and POST requests 
+are tested. The tests were exported to a JSON file (tests/collection.json) which may be re-imported to any Postman workspace in order to 
+run them. However, for this application, a CLI utility called Newman is used to execute them from the JSON file, so there is no need to have 
+Postman installed. This utilty is run from a docker image in order to save from having to install it and its Node.js dependencies. When the services 
+are up, running the included 'run_TESTS.sh' script will pull the Newman docker image, create the container and run all of the tests in the collection. 
+Results are then displayed in the terminal. All of the tests are functional in that their aim is to assert that the endpoints are producing valid and 
+expected responses. 
+
+Although the tests are not automated in that you must run the script manually after deployimg the services, they could easily enough be 
+integrated into a CI/CD type devops environment such as Jenkins, where the script would be triggered after each build. However, setting up 
+such an environment would be something of an overkill for this project. Another automation option would be to set up a monitor in the Postman 
+application, enabling the test suite to be run periodically. However, Postman does not support monitoring of internal localhost services, 
+meaning that they would need to be hosted on a publicaly available server. 
+
+
+
+
+
+
+
+
+
+
+
