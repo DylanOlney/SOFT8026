@@ -1,5 +1,6 @@
 #! /bin/sh
-
+echo ""
+echo "Deleting all services, deployments & configmaps..."
 # delete deployments
 kubectl delete deployment flask-server-dep
 kubectl delete deployment grpc-server-dep

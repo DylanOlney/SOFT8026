@@ -2,6 +2,7 @@ from flask import Flask, request, render_template
 import json
 from prometheus_flask_exporter import PrometheusMetrics
 
+
 # This script runs a Flask server for rendering a single web page which displays the
 # required metrics data. The data is posted regularly here by the gRPC client which computes it.
 # Scripts in the web page can then GET this data at regular intervals, for display.
