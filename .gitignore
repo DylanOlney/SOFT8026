@@ -2,6 +2,9 @@
 /assig2/source/grpc-server/*.csv
 /assig1/grpc_server/*.csv
 /HelloWorld
+push.bat
+push.vbs
+push.sh
 /lab03
 /lab04
 /lab05
