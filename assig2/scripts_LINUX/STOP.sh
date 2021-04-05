@@ -23,7 +23,7 @@ kubectl delete configmap grafana-ini
 kubectl delete configmap flask-source
 kubectl delete configmap flask-index
 
-./helper/continue.o
+./.helper/continue.o
 
 
 

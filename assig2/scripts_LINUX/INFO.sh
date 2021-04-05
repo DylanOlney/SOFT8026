@@ -11,7 +11,7 @@ echo '--------------------------------------------------------------------------
 kubectl get pod
 kubectl get job
 
-./helper/continue.o
+./.helper/continue.o
 
 
 

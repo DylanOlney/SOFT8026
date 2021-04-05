@@ -4,7 +4,7 @@ echo "Please wait..."
 sudo docker run --net=host -v  "$(pwd)"/postman:/etc/newman -t postman/newman run collection.json 
 echo "Tests complete!"
 
-../scripts_LINUX/helper/continue.o
+../scripts_LINUX/.helper/continue.o
 
 
 
