@@ -4,7 +4,7 @@
 /HelloWorld
 push.bat
 push.vbs
-push.sh
+git-push.sh
 .continue.o
 /lab03
 /lab04
