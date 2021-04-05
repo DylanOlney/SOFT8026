@@ -6,9 +6,11 @@ The yml files for the Kubenetes deployments and services are in the 'services' f
 A Docker image for each application service has been created from the files in the 'source' folder and pushed to Docker Hub. 
 These are pulled by the deployment files if not already present on the local machine.
 
- - The included Kube_START.sh script creates and deploys the architecture from the yml files.
- - The included Kube_STOP.sh script stops it, terminating the services & deployments and killing all the relevant pods.
- - The included Kube_INFO.sh script shows the deployments, services and pods running at any given time.
+Scripts to start/stop/view services are either in START_LINUX or START_WIN, depending on OS:
+
+ - The Kube_START script creates and deploys the architecture from the yml files.
+ - The Kube_STOP script stops it, terminating the services & deployments and killing all the relevant pods.
+ - The Kube_INFO script shows the deployments, services and pods running at any given time.
 
 Once deployed and up & running, the localhost port for viewing the analytics / metrics web pages is 30000. 
 This page also has a link to a dashboard for monitoring the Flask server.
@@ -48,15 +50,15 @@ The two services above are configured to monitor and display the following 3 sta
   2. CPU usage.
   3. Memory usage.
 
-The services are started along with the other application services via the 'Kube_START.sh' script.
+The services are started along with the other application services via the 'Kube_START' script.
 A link for viewing the Grafana dasboard page is provided in the application's index page (localhost:30000).
 
 
 Functional Testing of Flask Endpoints:
 --------------------------------------
 The testing aspect of the project concentrates on the Flask server API. Postman was used to develop a collection of some 25 individual tests for 
-the endpoints in which all possible GET and POST requests are tested. The tests were then exported to a JSON file (tests/collection.json) which may 
-be re-imported to any Postman workspace in order to run them. However, for this application, a CLI utility called Newman is used to execute them from 
+the endpoints in which all possible GET and POST requests are tested. The tests were then exported to a JSON file (tests/postman/collection.json) which 
+may be re-imported to any Postman workspace in order to run them. However, for this application, a CLI utility called Newman is used to execute them from 
 the JSON file, so there is no need to have Postman installed. This utilty is run from a docker image in order to save from having to install it and 
 its Node.js dependencies. When the services are up, running the included 'run_TESTS.sh' script will pull the Newman docker image, create the container 
 and run all of the tests in the collection. Results are then displayed in the terminal. All of the API tests are functional in that their aim is to 
