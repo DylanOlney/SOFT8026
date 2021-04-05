@@ -6,7 +6,7 @@ The yml files for the Kubenetes deployments and services are in the 'services.ym
 A Docker image for each application service has been created from the files in the 'source' folder and pushed to Docker Hub. 
 These are pulled by the deployment files if not already present on the local machine.
 
-Scripts to start/stop/view services are in scripts_LINUX or scripts_WIN folders, depending on OS:
+Scripts to start/stop/view services are in 'scripts_LINUX' or 'scripts_WIN' folders, depending on OS:
 
  - The START script creates and deploys the architecture from the yml files.
  - The STOP script stops it, terminating the services & deployments and killing all the relevant pods.
