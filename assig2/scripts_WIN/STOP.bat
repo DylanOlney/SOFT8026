@@ -1,6 +1,7 @@
 @echo off
 echo.
 echo Deleting all services, deployments and configmaps...
+
 REM delete deployments
 kubectl delete deployment flask-server-dep
 kubectl delete deployment grpc-server-dep
