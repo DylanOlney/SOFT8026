@@ -1,5 +1,6 @@
 @echo off
-
+echo Creating deployments and services...
+echo.
 REM create grpc-server
 kubectl create -f ../services.yml/application/grpc-server-dep.yml
 kubectl create -f ../services.yml/application/grpc-server-svc.yml
@@ -28,6 +29,10 @@ kubectl create configmap grafana-ini --from-file ../services.yml/monitoring/graf
 kubectl create -f ../services.yml/monitoring/grafana-dep.yml 
 kubectl create -f ../services.yml/monitoring/grafana-svc.yml 
 
+echo.
+echo Services are starting...
+echo Run INFO.bat a few times to check for readiness.
+echo When so, go to http://localhost:30000 to see web page.
 echo.
 pause
 

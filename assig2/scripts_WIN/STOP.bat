@@ -1,7 +1,6 @@
 @echo off
-echo.
 echo Deleting all services, deployments and configmaps...
-
+echo.
 REM delete deployments
 kubectl delete deployment flask-server-dep
 kubectl delete deployment grpc-server-dep
@@ -24,6 +23,9 @@ kubectl delete configmap grafana-ini
 kubectl delete configmap flask-source
 kubectl delete configmap flask-index
 
+echo.
+echo Services are stopping...
+echo Run INFO.bat to check status.
 echo.
 pause
 
