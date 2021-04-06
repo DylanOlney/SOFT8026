@@ -2,7 +2,7 @@
 
 Kubernetes - Deploying the services on the local machine:
 ---------------------------------------------------------
-The yml files for the Kubenetes deployments and services are in the 'services.yml' folder.
+The yml files for the Kubenetes deployments and services are in folders within the 'services.yml' folder.
 A Docker image for each application service has been created from the files in the 'source' folder and pushed to Docker Hub. 
 These are pulled by the deployment files if not already present on the local machine.
 
@@ -28,10 +28,9 @@ for the additional stream.
 
 Metrics / Analytics:
 --------------------
-From the point of view of metrics / analytics calulations, the two datasets have some equivalent columns, allowing for 
-the same kind of analyics to be carried out on both. However, some pre-processing was required in the grpc-server code so that 
-the equivalent columns relating to the analytics have the same column name and data format. Columns not relevant to the 
-analytics are dropped before streaming.
+From the point of view of metrics / analytics calulations, the two datasets in question have some equivalent columns, allowing for the same 
+kind of analyics to be carried out on both. However, some pre-processing was required in the grpc-server code so that the equivalent columns 
+relating to the analytics have the same column name and data format. Columns not relevant to the analytics are dropped before streaming.
 
 
 Monitoring & Visualization Services (Prometheus & Grafana)
@@ -61,7 +60,7 @@ The testing aspect of the project again concentrates on the Flask server API. Po
 the endpoints in which all possible GET and POST requests are tested. The tests were then exported to a JSON file (tests/postman/collection.json) which 
 may be re-imported to any Postman workspace in order to run them. However, for this application, a CLI utility called Newman is used to execute them from 
 the JSON file, so there is no need to have Postman installed. This utilty is run from a docker image in order to save from having to install it and 
-its Node.js dependencies. When the services are up, running the included 'run_TESTS.sh' script will pull the Newman docker image, create the container 
+its Node.js dependencies. When the services are up, running the included 'run_TESTS' script will pull the Newman docker image, create the container 
 and run all of the tests in the collection. Results are then displayed in the terminal. All of the API tests are functional in that their aim is to 
 assert that the endpoints are producing valid, expected responses. 
 
