@@ -29,7 +29,8 @@ kubectl create -f ../services.yml/monitoring/grafana-dep.yml
 kubectl create -f ../services.yml/monitoring/grafana-svc.yml 
 
 
-./.helper/continue.o
+echo "\nPress ENTER to continue..."
+read input
 
 
 

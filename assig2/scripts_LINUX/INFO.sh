@@ -11,7 +11,12 @@ echo '--------------------------------------------------------------------------
 kubectl get pod
 kubectl get job
 
-./.helper/continue.o
+
+echo "\nPress ENTER to continue..."
+read input
+
+
+
 
 
 
