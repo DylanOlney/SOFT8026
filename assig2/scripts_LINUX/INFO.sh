@@ -9,7 +9,6 @@ kubectl get svc
 echo '\nPods'
 echo '--------------------------------------------------------------------------'
 kubectl get pod
-kubectl get job
 
 
 echo "\nPress ENTER to continue..."

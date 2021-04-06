@@ -1,5 +1,7 @@
 #! /bin/sh
 
+echo "Creating deployments and services...\n"
+
 # create grpc-server
 kubectl create -f ../services.yml/application/grpc-server-dep.yml
 kubectl create -f ../services.yml/application/grpc-server-svc.yml
@@ -29,8 +31,13 @@ kubectl create -f ../services.yml/monitoring/grafana-dep.yml
 kubectl create -f ../services.yml/monitoring/grafana-svc.yml 
 
 
-echo "\nPress ENTER to continue..."
-read input
+#echo "\nPress ENTER to continue..."
+#read input
+
+echo "\nServices are starting..."
+echo "Run ./INFO.sh a few times to check for readiness."
+echo "When so, go to http://localhost:30000 (CTRL + click) to see web page.\n"
+sh
 
 
 

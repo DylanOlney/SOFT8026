@@ -1,6 +1,7 @@
 #! /bin/sh
-echo ""
-echo "Deleting all services, deployments & configmaps..."
+
+echo "Deleting services, deployments & configmaps...\n"
+
 # delete deployments
 kubectl delete deployment flask-server-dep
 kubectl delete deployment grpc-server-dep
@@ -23,9 +24,9 @@ kubectl delete configmap grafana-ini
 kubectl delete configmap flask-source
 kubectl delete configmap flask-index
 
-echo "\nPress ENTER to continue..."
-read input
-
+echo "\nServices are stopping..."
+echo "Run ./INFO.sh to check status.\n"
+sh
 
 
 
