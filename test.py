@@ -1,4 +1,5 @@
 import json
 def count(event, context):
-  print (event)
-  return json.dumps(event)
+  if event==None:
+      return "GET Request"
+  else return json.dumps(event)
