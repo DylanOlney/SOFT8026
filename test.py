@@ -1,2 +1,3 @@
 def count(event, context):
-    return event
+    msg = event['data']['msg']
+    return msg
