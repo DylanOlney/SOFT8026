@@ -55,9 +55,6 @@ def data_posts():
     global postMetrics
     if request.method == 'POST':
          postMetrics = request.get_json(force = True)
-         d = {}
-         d['type'] = "blogpost"
-         requests.post(url = 'http://counter:8080', data = d) 
          return 'ok'
     elif request.method == 'GET':
          try:
@@ -71,13 +68,9 @@ def data_posts():
 @app.route('/data_vids', methods = ['POST', 'GET'])
 @path_counter
 def data_vids():
-   
     global vidMetrics
     if request.method == 'POST':
          vidMetrics = request.get_json(force = True)
-         d = {}
-         d['type'] = "vidpost"
-         requests.post(url = 'http://counter:8080', data = d) 
          return 'ok'
     elif request.method == 'GET':
          try:
@@ -87,12 +80,7 @@ def data_vids():
     else:
         return ''
 
-@app.route('/get_counts', methods = ['GET'])
-def get_counts():
-    d = {}
-    d['type'] = "getCounts"
-    resp = requests.post(url = 'http://counter:8080', data = d)
-    return resp.json()
+
           
  
 if __name__ == '__main__':
