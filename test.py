@@ -1,6 +1,5 @@
-
 def count(event, context):
-  if event==None:
+  if event is None:
       return "GET Request"
   else:
-      return 'POST Request'
+      return "POST Request"
