@@ -1,3 +1,4 @@
-def hello(event, context):
+import json
+def count(event, context):
   print (event)
-  return 'Hi There!'
+  return json.dumps(event)
