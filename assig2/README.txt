@@ -80,7 +80,7 @@ the streamed data and passing the calculation results on to the flask server. It
 The yml file for the function is in the '/services.yml/application' folder of the project and the source code for the function itself is in the
 '/source' folder. However, for the yml file to access this Python source file, it had to be zipped and uploaded to github. 
 
-In fact the whole project has been pushed to github and can be accessed at:
+In fact, the whole project has been pushed to github and can be accessed at:
 
 https://github.com/DylanOlney/SOFT8026/tree/main/assig2
 
