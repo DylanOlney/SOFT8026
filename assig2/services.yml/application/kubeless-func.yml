@@ -15,7 +15,7 @@ spec:
             "annotation-to-pod": "value"
   deps: ""
   function-content-type: url+zip
-  function: https://github.com/DylanOlney/SOFT8026/blob/main/metrics.zip?raw=true
+  function: https://github.com/DylanOlney/SOFT8026/blob/main/assig2/source/kubeless-func/metrics.zip?raw=true
   handler: metrics.main
   runtime: python3.6
   service:
