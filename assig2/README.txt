@@ -19,11 +19,11 @@ This page also has a link to a dashboard for monitoring the Flask server.
 
 Architecture:
 -------------
-Apart from monitoring services, no extra application services were added since assignment 1. The existing ones were just modified to 
-cater for the additional dataset streaming and metrics calculations. In the grpc-server, an extra rpc function was implemented for the 
-streaming of the 2nd dataset. The grpc-client service in turn uses threads to receive the two streams in parallel, concurrently computing 
-the metrics for each, and passing them onto the flask server. The web-server was also modified to display an extra page to show the metrics 
-for the additional stream.
+Apart from monitoring services and a Kubeless function, no extra application services were added since assignment 1. The existing ones 
+were just modified to cater for the additional dataset streaming and metrics calculations. In the grpc-server, an extra rpc function 
+was implemented for the streaming of the 2nd dataset. The grpc-client service in turn uses threads to receive the two streams in parallel, 
+concurrently computing the metrics for each, and passing them onto the flask server. The web-server was also modified to display an extra 
+page to show the metrics for the additional stream.
 
 
 Metrics / Analytics:
@@ -69,6 +69,20 @@ integrated into a CI/CD type devops environment such as Jenkins, where the scrip
 such an environment would be something of an overkill for this project. Another automation option would be to set up a monitor in the Postman 
 application, enabling the test suite to be run periodically. However, Postman does not support monitoring of internal localhost services, 
 meaning that they would need to be hosted externally on a publicly available server. 
+
+
+Serverless function (Kubeless):
+-------------------------------
+The function that calculates the stream analytics / metrics, which was originally in the grpc client, has been taken from there and ported
+to a Kubeless serverless function. Now the grpc client calls this function over http, POST-ing the required data to it, and getting back the same 
+calculation results as when the function was local. This has the advantage of separating concerns, making the grpc client purely for getting
+the streamed data and passing the calculation results on to the flask server. It also demonstrates a kubeless function doing something useful.
+The yml file for the function is in the '/services.yml/application' folder of the project and the source code for the function itself is in the
+'/source' folder. However, for the yml file to access this Python source file, it had to be zipped and uploaded to github. 
+
+In fact the whole project has been pushed to github and can be accessed at:
+
+https://github.com/DylanOlney/SOFT8026/tree/main/assig2
 
 
 
