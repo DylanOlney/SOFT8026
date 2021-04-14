@@ -21,6 +21,8 @@ def run():
             pass
         print('Server online. Connection established!')
         
+        wait_for_serverless()
+
         stub = pb2_grpc.StreamerStub(channel)
 
         # These are the remote calls (the value of 'msg' is arbitrary).
@@ -43,8 +45,9 @@ def processStream(stream, store , msg, url):
         print(msg)
         d = json.loads(resp.dataRow)
         store.merge(d)
-        data = updateMetrics(store)
-        postMetrics(url, data)
+        #data = updateMetrics(store)
+        data = requests.post(url = 'http://metrics-func:8080', data = {'dataDict': store})
+        postMetrics(url, json.dumps(data))
 
 
 def grpc_server_on(channel) -> bool:
@@ -54,7 +57,13 @@ def grpc_server_on(channel) -> bool:
     except grpc.FutureTimeoutError:
         return False
 
-
+def wait_for_serverless():
+     while True:
+         resp = requests.post(url = 'http://metrics-func:8080', data = {'dataDict': 'test'}, timeout=2)
+         if resp = 'ok':
+            break;
+         print("Waiting for serverless function to come online....")
+     return
 
 
 # The metrics for posts/videos to date are calculated here and are a follows:
@@ -64,46 +73,46 @@ def grpc_server_on(channel) -> bool:
 # - the oldest post/video so far.
 
 
-def updateMetrics(dataDict):
-    total_comments = 0
-    max_comments = -999
-    earliest_date = 9999999999
-    key_most_comments = ''
-    key_oldest = ''
-    count = 0
-    for i in dataDict:
-        num_comments = int(dataDict[i]['num_comments'])
-        created_utc = int(dataDict[i]['created_utc'])
-        total_comments += num_comments
-        if num_comments > max_comments:
-            max_comments = num_comments
-            key_most_comments = i
-        if created_utc < earliest_date:
-            earliest_date = created_utc
-            key_oldest = i
-        count += 1
-    av_num_comments =  float(total_comments) / count
-     
-    max_comments_3min = -999
-    key_most_comments_3min = ''
-    t = int(time.time())
-    
-    # Rolling 3-min window of max comments...
-    for i in reversed(list(dataDict.keys())):
-        num_comments = int(dataDict[i]['num_comments'])
-        if int(dataDict[i]['streamed_time']) < (t - 180):
-            break
-       
-        if num_comments > max_comments_3min:
-             max_comments_3min = num_comments
-             key_most_comments_3min = i
-
-    metrics = {}  
-    metrics['av_num_comments'] = av_num_comments
-    metrics['most_comments'] = {key_most_comments: dataDict[key_most_comments]}
-    metrics['most_comments_3min'] = {key_most_comments_3min: dataDict[key_most_comments_3min]}
-    metrics['oldest_post'] = {key_oldest: dataDict[key_oldest]}
-    return json.dumps(metrics)
+#def updateMetrics(dataDict):
+#    total_comments = 0
+#    max_comments = -999
+#    earliest_date = 9999999999
+#    key_most_comments = ''
+#    key_oldest = ''
+#    count = 0
+#    for i in dataDict:
+#        num_comments = int(dataDict[i]['num_comments'])
+#        created_utc = int(dataDict[i]['created_utc'])
+#        total_comments += num_comments
+#        if num_comments > max_comments:
+#            max_comments = num_comments
+#            key_most_comments = i
+#        if created_utc < earliest_date:
+#            earliest_date = created_utc
+#            key_oldest = i
+#        count += 1
+#    av_num_comments =  float(total_comments) / count
+#     
+#    max_comments_3min = -999
+#    key_most_comments_3min = ''
+#    t = int(time.time())
+#    
+#    # Rolling 3-min window of max comments...
+#    for i in reversed(list(dataDict.keys())):
+#        num_comments = int(dataDict[i]['num_comments'])
+#        if int(dataDict[i]['streamed_time']) < (t - 180):
+#            break
+#       
+#        if num_comments > max_comments_3min:
+#             max_comments_3min = num_comments
+#             key_most_comments_3min = i
+#
+#    metrics = {}  
+#    metrics['av_num_comments'] = av_num_comments
+#    metrics['most_comments'] = {key_most_comments: dataDict[key_most_comments]}
+#    metrics['most_comments_3min'] = {key_most_comments_3min: dataDict[key_most_comments_3min]}
+#    metrics['oldest_post'] = {key_oldest: dataDict[key_oldest]}
+#    return json.dumps(metrics)
 
 
 
