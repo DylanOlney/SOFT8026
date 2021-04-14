@@ -1,0 +1,30 @@
+apiVersion: kubeless.io/v1beta1
+kind: Function
+metadata:
+  name: metrics-func
+spec:
+  deployment:
+    metadata:
+      annotations:
+        "annotation-to-deploy": "value"
+    spec:
+      replicas: 1
+      template:
+        metadata:
+          annotations:
+            "annotation-to-pod": "value"
+  deps: ""
+  function-content-type: url+zip
+  function: https://github.com/DylanOlney/SOFT8026/blob/main/metrics.zip?raw=true
+  handler: metrics.main
+  runtime: python3.6
+  service:
+    selector:
+      function: metrics-func
+    ports:
+    - name: http-function-port
+      port: 9091
+      protocol: TCP
+      targetPort: 9091
+      nodePort: 30333
+    type: NodePort

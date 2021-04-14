@@ -2,11 +2,15 @@
 
 echo "Creating deployments and services...\n"
 
+# create kubeless function
+kubectl create -f ../services.yml/application/kubeless-func.yml
+
 # create grpc-server
 kubectl create -f ../services.yml/application/grpc-server-dep.yml
 kubectl create -f ../services.yml/application/grpc-server-svc.yml
 
 # create grpc-client
+kubectl create configmap grpc-client-source --from-file ../source/grpc-client/client.py
 kubectl create -f ../services.yml/application/grpc-client-dep.yml
 
 # create flask-server

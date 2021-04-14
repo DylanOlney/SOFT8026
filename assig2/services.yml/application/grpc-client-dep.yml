@@ -22,8 +22,16 @@ spec:
       - name: grpc-client
         image: dylanolney/assig2-grpc-client:latest
 
+        volumeMounts:
+          - name: grpc-client-source
+            mountPath: /app/client.py
+            subPath: client.py
+         
 
+      volumes:
+        - name: grpc-client-source
+          configMap:
+            name: grpc-client-source
 
-
-
+        
 

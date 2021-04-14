@@ -1,11 +1,16 @@
 @echo off
 echo Creating deployments and services...
 echo.
+
+REM create kubeless function
+kubectl create -f ../services.yml/application/kubeless-func.yml
+
 REM create grpc-server
 kubectl create -f ../services.yml/application/grpc-server-dep.yml
 kubectl create -f ../services.yml/application/grpc-server-svc.yml
 
 REM create grpc-client
+kubectl create configmap grpc-client-source --from-file ../source/grpc-client/client.py
 kubectl create -f ../services.yml/application/grpc-client-dep.yml
 
 REM create flask-server

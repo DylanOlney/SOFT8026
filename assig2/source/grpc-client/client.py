@@ -39,16 +39,25 @@ def run():
 
 
 
+# The metrics for posts/videos to date are now calculated by a serverless function at: http://metrics-func:9091.
 
-def processStream(stream, store , msg, url):
+# Metrics are as follows:
+# - the average no. of comments per post/video since streaming started.
+# - the post/video with most comments so far, since streaming started.
+# - the post/video with most comments in the last 3 minutes (will be the same as above for at least the 1st 3 min.).
+# - the oldest post/video so far.
+
+def processStream(stream, store , msg, flask_url):
     for resp in stream:
         print(msg)
-        d = json.loads(resp.dataRow)
-        store.merge(d)
-        #data = updateMetrics(store)
-        data = requests.post(url = 'http://metrics-func:8080', data = {'dataDict': store})
-        postMetrics(url, json.dumps(data))
+        store.merge(json.loads(resp.dataRow))
+        metrics = requests.post(url = 'http://metrics-func:9091', data = json.dumps({"dataDict": store}), headers = {'content-type': 'application/json'} )
+        requests.post(url = flask_url, data = json.dumps(metrics.json())) 
 
+
+
+
+# These functions make sure other services are running before requesting streams.
 
 def grpc_server_on(channel) -> bool:
     try:
@@ -57,21 +66,35 @@ def grpc_server_on(channel) -> bool:
     except grpc.FutureTimeoutError:
         return False
 
+
 def wait_for_serverless():
      while True:
-         resp = requests.post(url = 'http://metrics-func:8080', data = {'dataDict': 'test'}, timeout=2)
-         if resp = 'ok':
+         resp = requests.post(url = 'http://metrics-func:9091', data = json.dumps({'dataDict': 'test'}),  headers = {'content-type': 'application/json'} , timeout=2)
+         if resp.text == 'ok':
             break;
          print("Waiting for serverless function to come online....")
      return
 
 
-# The metrics for posts/videos to date are calculated here and are a follows:
-# - the average no. of comments per post/video since streaming started.
-# - the post/video with most comments so far, since streaming started.
-# - the post/video with most comments in the last 3 minutes (will be the same as above for at least the 1st 3 min.).
-# - the oldest post/video so far.
+    
 
+
+if __name__ == '__main__':
+    logging.basicConfig()
+    run()
+
+
+
+
+
+
+
+
+
+
+
+
+# Old metrics function - now a kubeless function.
 
 #def updateMetrics(dataDict):
 #    total_comments = 0
@@ -117,15 +140,4 @@ def wait_for_serverless():
 
 
 
-# This function POSTs the latest metrics data to the Flask web server.
-def postMetrics(URL, jsonData):
-    try:
-        requests.post(url = URL, data = jsonData) 
-    except:
-        pass
-    
 
-
-if __name__ == '__main__':
-    logging.basicConfig()
-    run()

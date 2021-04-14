@@ -23,6 +23,9 @@ kubectl delete configmap grafana-datasource
 kubectl delete configmap grafana-ini
 kubectl delete configmap flask-source
 kubectl delete configmap flask-index
+kubectl delete configmap grpc-client-source
+
+kubeless function delete metrics-func
 
 echo "\nServices are stopping..."
 echo "Run ./INFO.sh to check status.\n"
