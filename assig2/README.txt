@@ -22,7 +22,7 @@ Architecture:
 Apart from monitoring services and a Kubeless function, no extra application services were added since assignment 1. The existing ones 
 were just modified to cater for the additional dataset streaming and metrics calculations. In the grpc-server, an extra rpc function 
 was implemented for the streaming of the 2nd dataset. The grpc-client service in turn uses threads to receive the two streams in parallel, 
-concurrently computing the metrics for each, and passing them onto the flask server. The web-server was also modified to display an extra 
+concurrently computing the metrics for each, and passing them onto the flask server. The webserver was also modified to display an extra 
 page to show the metrics for the additional stream.
 
 
@@ -51,7 +51,7 @@ The two services above are configured to monitor and display the following 3 sta
   3. Memory usage.
 
 The services are started along with the other application services via the 'START' script.
-A link for viewing the Grafana dasboard page is provided in the application's index page (localhost:30000).
+A link for viewing the Grafana dashboard page is provided in the application's index page (localhost:30000).
 
 
 Functional Testing of Flask Endpoints:
@@ -59,13 +59,13 @@ Functional Testing of Flask Endpoints:
 The testing aspect of the project again concentrates on the Flask server API. Postman was used to develop a collection of some 25 individual tests for 
 the endpoints in which all possible GET and POST requests are tested. The tests were then exported to a JSON file (tests/postman/collection.json) which 
 may be re-imported to any Postman workspace in order to run them. However, for this application, a CLI utility called Newman is used to execute them from 
-the JSON file, so there is no need to have Postman installed. This utilty is run from a docker image in order to save from having to install it and 
+the JSON file, so there is no need to have Postman installed. This utility is run from a docker image in order to save from having to install it and 
 its Node.js dependencies. When the services are up, running the included 'run_TESTS' script will pull the Newman docker image, create the container 
 and run all of the tests in the collection. Results are then displayed in the terminal. All of the API tests are functional in that their aim is to 
 assert that the endpoints are producing valid, expected responses. 
 
-Although the tests are not automated in that you must run the script manually after deployimg the services, they could easily enough be 
-integrated into a CI/CD type devops environment such as Jenkins, where the script could be triggered after each build. However, setting up 
+Although the tests are not automated in that you must run the script manually after deploying the services, they could easily enough be 
+integrated into a CI/CD type dev-ops environment such as Jenkins, where the script could be triggered after each build. However, setting up 
 such an environment would be something of an overkill for this project. Another automation option would be to set up a monitor in the Postman 
 application, enabling the test suite to be run periodically. However, Postman does not support monitoring of internal localhost services, 
 meaning that they would need to be hosted externally on a publicly available server. 
@@ -83,14 +83,4 @@ The yml file for the function is in the '/services.yml/application' folder of th
 In fact, the whole project has been pushed to github and can be accessed at:
 
 https://github.com/DylanOlney/SOFT8026/tree/main/assig2
-
-
-
-
-
-
-
-
-
-
 
