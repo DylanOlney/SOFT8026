@@ -73,14 +73,19 @@ meaning that they would need to be hosted externally on a publicly available ser
 
 Serverless function (Kubeless):
 -------------------------------
-The function that calculates the stream analytics / metrics, which was originally in the grpc client, has been taken from there and ported
-to a Kubeless serverless function. Now the grpc client calls this function over http, POST-ing the required data to it, and getting back the same 
-calculation results as when the function was local. This has the advantage of separating concerns, making the grpc client purely for getting
-the streamed data and passing the calculation results on to the flask server. It also demonstrates a kubeless function doing something useful.
-The yml file for the function is in the '/services.yml/application' folder of the project and the source code for the function itself is in the
-'/source' folder. However, for the yml file to access this Python source file, it had to be zipped and uploaded to github. 
-
-In fact, the whole project has been pushed to github and can be accessed at:
+The function that calculates the stream analytics / metrics, which was originally in the grpc client was taken from there and 
+ported to a Kubeless serverless function. The grpc client now calls this function over HTTP by POST-ing the required data to it, 
+and it gets back the same calculation results as when the function was local. This has the advantage of separating concerns, 
+making the grpc client purely for getting the streamed data and passing the calculation results on to the flask server. 
+It also demonstrates a Kubeless function doing something useful. The Python source file for the function is included in the solution. 
+However, the associated yml file needs to access the function code via a URL, so it had to be zipped and uploaded to a public GitHub repo. 
+In fact, the whole project has been pushed to GitHub and can be accessed at: 
 
 https://github.com/DylanOlney/SOFT8026/tree/main/assig2
+
+
+
+
+
+
 
